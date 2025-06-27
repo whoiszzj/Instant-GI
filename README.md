@@ -1,5 +1,5 @@
 # Instant GaussianImage: A Generalizable and Self-Adaptive Image Representation via 2D Gaussian Splatting (ICCV'2025)
-[![License](https://img.shields.io/badge/License-Apache_2.0-blue.svg)](https://opensource.org/licenses/Apache-2.0) 
+[![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) 
 [![arXiv](https://img.shields.io/badge/Instant_GI-xxxxx-b31b1b)](https://arxiv.org/abs/xxxxxx)
 
 
