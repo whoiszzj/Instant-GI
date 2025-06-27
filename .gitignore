@@ -1,0 +1,14 @@
+*.idea/
+checkpoints/
+*__pycache__/
+folders/
+load/
+data/
+output/
+save/
+mytest/
+wandb/
+*build/
+*.egg-info/
+.vscode/
+*.sh

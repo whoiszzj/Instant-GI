@@ -1,0 +1,17 @@
+mode: train
+dataset:
+  dataset_name: div2k
+  train_dir: ./data/div2k_gs/train
+  valid_dir: ./data/div2k_gs/valid
+  scale: 1.0
+  batch_size: 1  # now only support batch_size=1
+
+train:
+  epochs: 100
+  lr: 0.001
+  lr_min: 0.00001
+  pretrained: False
+  checkpoints_dir: ./checkpoints/train_init
+  resume: False
+  resume_checkpoint: ./checkpoints/train_init_last/epoch_last.pth
+  seed: 42

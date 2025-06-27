@@ -1,0 +1,31 @@
+mode: train #[train, test]
+
+dataset:
+  dataset_name: kodak  #[div2k, kodak, general]
+  images_dir: ./data/kodak
+  start: 1
+  images_num: 24
+  regex: 'kodim{:02d}.png'
+  image_paths: [] # Only activate when the dataset_name is set as "general"
+
+model:
+  model_name: GaussianImage_RS # now only support GaussianImage_RS
+  init_gaussians: "net" # [net, random, quard]
+  kernel_size: 3  # minimal patch size when performing dither
+  init_model_path: ./checkpoints/epoch_best_ks_3.pth
+  random_init:
+    same_test: True # If same test is true, it will use the init net to initalize the number of gaussians, otherwise using the below "num_points".
+    num_points: 20000 # number of gaussians when random initialization
+
+train:
+  iterations: 50000
+  lr: 0.001
+  save_path: ./output
+  seed: 42
+  limit_train: False
+  limit_train_log_point: [2, 5] # run only x seconds, and record psnr
+
+wandb: # use wandb to record the training process
+  activate: False
+  record_iter: 2000
+  project_name: "Instant-GI"

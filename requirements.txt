@@ -1,0 +1,20 @@
+torch
+torchvision
+numpy
+pandas
+pillow
+pytorch-msssim
+PyYAML
+tqdm
+scipy
+scikit-image
+matplotlib
+opencv-python
+einops
+wandb
+git+https://github.com/thomgrand/torch_kdtree.git
+timm
+# self define modules
+./submodules/gsplat
+./submodules/ellipse_fit
+./submodules/torch_dither
