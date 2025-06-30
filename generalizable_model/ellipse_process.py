@@ -63,6 +63,8 @@ class EllipseProcess:
     def post_process(self, points, H, W):
         points = add_boundary_points(points, H, W)
         # Delaunay is the most time consumption on CPU, however I can't find a way to accelerate it.
+        # Note that the library CuPy support GPU version Delaunay, but there are some bugs
+        # So we may test and modify based on it one day.
         tri = Delaunay(points, incremental=True)
         simplices = tri.simplices
         self.triangles = points[simplices]  # [N, 3, 2]

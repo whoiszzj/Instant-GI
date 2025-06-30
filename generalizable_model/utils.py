@@ -1,5 +1,3 @@
-from symbol import pass_stmt
-
 import cv2
 import numpy as np
 import torch
@@ -8,7 +6,6 @@ from sympy import ceiling
 import torch.nn as nn
 from torch_dither import torch_image_dither
 from torch_kdtree import build_kd_tree
-from pytorch_msssim import ms_ssim, ssim
 from generalizable_model.ssim import SSIM
 
 def dither_image(position_field, kernel_size=3, image=None):
@@ -77,35 +74,6 @@ def neighbors_process(neighbors):
     self_index = np.arange(neighbors.shape[0]).reshape(-1, 1).repeat(3, axis=1)
     neighbors[mask] = self_index[mask]
     return neighbors
-
-
-def calculate_circumcenters_and_radii(vertices):
-    A = vertices[:, 0, :]  # [N, 2]
-    B = vertices[:, 1, :]  # [N, 2]
-    C = vertices[:, 2, :]  # [N, 2]
-
-    mid_AB = (A + B) / 2  # [N, 2]
-    mid_BC = (B + C) / 2  # [N, 2]
-
-    d_AB = B - A  # [N, 2]
-    d_BC = C - B  # [N, 2]
-
-    perp_AB = torch.stack([-d_AB[:, 1], d_AB[:, 0]], dim=1)  # [N, 2]
-    perp_BC = torch.stack([-d_BC[:, 1], d_BC[:, 0]], dim=1)  # [N, 2]
-
-    A_matrix = torch.stack([perp_AB, -perp_BC], dim=1).transpose(1, 2)  # [N, 2, 2]
-    b_vector = (mid_BC - mid_AB).unsqueeze(2)  # [N, 2, 1]
-
-    try:
-        A_inv = torch.linalg.inv(A_matrix)  # [N, 2, 2]
-        t_s = torch.bmm(A_inv, b_vector).squeeze(2)  # [N, 2]
-        circumcenters = mid_AB + t_s[:, 0:1] * perp_AB  # [N, 2]
-    except RuntimeError:
-        circumcenters = torch.full((vertices.size(0), 2), float('nan'), device=vertices.device)
-
-    radii = torch.norm(circumcenters - A, dim=1)  # [N]
-
-    return circumcenters, radii
 
 
 class FocalMSELoss(nn.Module):

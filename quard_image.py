@@ -1,15 +1,11 @@
 import numpy as np
 from PIL import Image, ImageFilter
 import matplotlib.pyplot as plt
-from matplotlib.patches import Ellipse
 import time
 from collections import deque
 
-from networkx.algorithms.cluster import triangles
-from scipy.integrate import simps
 from scipy.spatial import Delaunay
 import cv2
-from skimage.draw import ellipse
 
 
 # Define quadtree node class
