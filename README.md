@@ -9,14 +9,16 @@ This repository contains the official implementation of our paper [Instant-GI](h
 Implicit Neural Representation (INR) has demonstrated remarkable advances in the field of image representation but demands substantial GPU resources. GaussianImage recently pioneered the use of Gaussian Splatting to mitigate this cost, however, the slow training process limits its practicality, and the fixed number of Gaussians per image limits its adaptability to varying information entropy. To address these issues, we propose in this paper a generalizable and self-adaptive image representation framework based on 2D Gaussian Splatting. Our method employs a network to quickly generate a coarse Gaussian representation, followed by minimal fine-tuning steps, achieving comparable rendering quality of GaussianImage while significantly reducing training time. Moreover, our approach dynamically adjusts the number of Gaussian points based on image complexity to further enhance flexibility and efficiency in practice. Experiments on DIV2K and Kodak datasets show that our method matches or exceeds GaussianImage's rendering performance with far fewer iterations and shorter training times. Specifically, our method reduces the training time by up to one order of magnitude while achieving superior rendering performance with the same number of Gaussians.
 
 
-<div align="center">
-  <img src="./assets/pipeline.png" alt="kodak_fitting" />
+<div>
+  <img align="center" src="./assets/pipeline.png" alt="kodak_fitting" />
+
   <sub align="left">**Overview of our Instant-GI pipeline.** Given an input image, we first extract a feature map using a ConvNeXt-based UNet. The Position Probability Map (PPM) is then predicted by an MLP-based Position Field and discretized via Floyd–Steinberg Dithering. The resulting points are structured using Delaunay Triangulation, from which geometric features are extracted. Gaussian attributes, including position, scaling, rotation, and opacity, are predicted through dedicated MLP fields (BC Field, Σ Field, and Opacity Field). The final Gaussians are rendered via splatting, supervised by the RGB loss L_rec to ensure reconstruction quality. Additionally, a pre-trained Gaussian representation from GI is used to generate a Pseudo PPM, which supervises position probability learning via L_ppm.</sub>
 </div>
 
 
-<div align="center">
-  <img src="./assets/time_step_vis.png" alt="time step vis"/>
+<div>
+  <img align="center" src="./assets/time_step_vis.png" alt="time step vis"/>
+
   <sub align="left">**Reconstruction Progress Visualization.** Each row sequentially shows the GT image, frequency spectrum, initialization results, and results at 2s, 10s, and 20s. The results compare Rand. Init (left) and Net. Init. (right).</sub>
 </div>
 
