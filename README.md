@@ -1,9 +1,9 @@
 # Instant GaussianImage: A Generalizable and Self-Adaptive Image Representation via 2D Gaussian Splatting (ICCV'2025)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) 
-[![arXiv](https://img.shields.io/badge/Instant_GI-xxxxx-b31b1b)](https://arxiv.org/abs/xxxxxx)
+[![arXiv](https://img.shields.io/badge/Instant_GI-xxxxx-b31b1b)](https://arxiv.org/abs/2506.23479)
 
 
-This repository contains the official implementation of our paper [Instant-GI](xxxxxxxxxxxxxx), which introduces a versatile and adaptive image representation framework utilizing 2D Gaussian Splatting ([GaussianImage](https://arxiv.org/abs/2403.08551)). GaussianImage leverages the rapid rendering capabilities of Gaussian Splatting within the realm of INR (Implicit Neural Rendering), distinguishing itself with superior rendering speed, compression efficiency, and reconstruction quality. Nonetheless, it faces certain challenges, such as the extended training time required to achieve satisfactory representation and the need to predefine a fixed number of Gaussians per image, rather than dynamically adjusting based on the image's information entropy. Our approach addresses these issues by enhancing these aspects to make GaussianImage more practical. For a comprehensive understanding of our methodology, please refer to our paper.
+This repository contains the official implementation of our paper [Instant-GI](https://arxiv.org/abs/2506.23479), which introduces a versatile and adaptive image representation framework utilizing 2D Gaussian Splatting ([GaussianImage](https://arxiv.org/abs/2403.08551)). GaussianImage leverages the rapid rendering capabilities of Gaussian Splatting within the realm of INR (Implicit Neural Rendering), distinguishing itself with superior rendering speed, compression efficiency, and reconstruction quality. Nonetheless, it faces certain challenges, such as the extended training time required to achieve satisfactory representation and the need to predefine a fixed number of Gaussians per image, rather than dynamically adjusting based on the image's information entropy. Our approach addresses these issues by enhancing these aspects to make GaussianImage more practical. For a comprehensive understanding of our methodology, please refer to our paper.
 
 ## Overview
 Implicit Neural Representation (INR) has demonstrated remarkable advances in the field of image representation but demands substantial GPU resources. GaussianImage recently pioneered the use of Gaussian Splatting to mitigate this cost, however, the slow training process limits its practicality, and the fixed number of Gaussians per image limits its adaptability to varying information entropy. To address these issues, we propose in this paper a generalizable and self-adaptive image representation framework based on 2D Gaussian Splatting. Our method employs a network to quickly generate a coarse Gaussian representation, followed by minimal fine-tuning steps, achieving comparable rendering quality of GaussianImage while significantly reducing training time. Moreover, our approach dynamically adjusts the number of Gaussian points based on image complexity to further enhance flexibility and efficiency in practice. Experiments on DIV2K and Kodak datasets show that our method matches or exceeds GaussianImage's rendering performance with far fewer iterations and shorter training times. Specifically, our method reduces the training time by up to one order of magnitude while achieving superior rendering performance with the same number of Gaussians.
@@ -175,7 +175,13 @@ Thanks to the following open-source libraries, among others, for their assistanc
 ## Citation
 If you find our work useful or relevant to your research, please kindly cite our paper:
 ```
-xxxxxx
+@InProceedings{Zeng_2025_ICCV,
+    author    = {Zeng, Zhaojie and Wang, Yuesong and Yang, Chao and Guan, Tao and Ju, Lili},
+    title     = {Instant GaussianImage: A Generalizable and Self-Adaptive Image Representation via 2D Gaussian Splatting},
+    booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
+    month     = {October},
+    year      = {2025}
+}
 ```
 
 
