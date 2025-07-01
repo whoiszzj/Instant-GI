@@ -1,9 +1,34 @@
-# Instant GaussianImage: A Generalizable and Self-Adaptive Image Representation via 2D Gaussian Splatting (ICCV'2025)
+# Dev Vesion - Instant GaussianImage: A Generalizable and Self-Adaptive Image Representation via 2D Gaussian Splatting (ICCV'2025)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) 
 [![arXiv](https://img.shields.io/badge/Instant_GI-2506.23479-b31b1b)](https://arxiv.org/abs/2506.23479)
 
 
 This repository contains the official implementation of our paper [Instant-GI](https://arxiv.org/abs/2506.23479), which introduces a versatile and adaptive image representation framework utilizing 2D Gaussian Splatting ([GaussianImage](https://arxiv.org/abs/2403.08551)). GaussianImage leverages the rapid rendering capabilities of Gaussian Splatting within the realm of INR (Implicit Neural Rendering), distinguishing itself with superior rendering speed, compression efficiency, and reconstruction quality. Nonetheless, it faces certain challenges, such as the extended training time required to achieve satisfactory representation and the need to predefine a fixed number of Gaussians per image, rather than dynamically adjusting based on the image's information entropy. Our approach addresses these issues by enhancing these aspects to make GaussianImage more practical. For a comprehensive understanding of our methodology, please refer to our paper.
+
+## Dev Note
+This is a development version, which mainly replaces the `Delaunay` algorithm of the `scipy` version with the GPU version of `Delaunay` from `cupy` compared to the `master` branch version. For details, you can refer to the modifications in the `generalizable_model/ellipse_process.py` file. It is worth mentioning that there are certain differences between the triangulation algorithms of the two. Specifically, the original `scipy` version's algorithm performs slightly better, almost requiring no filtering of the triangulated triangles, whereas the `cupy` version may have more or less non-compliant triangles, so some filtering strategies have been added. Moreover, there is a bug in the `neighbor` calculation in the `cupy` version `14.0.0a1`, and the `neighbor` is manually calculated in the code. To run this version, you need to install the `cupy` library version `14+`.
+
+```bash
+pip install cupy-cuda12x --pre -U -f https://pip.cupy.dev/pre
+```
+I also tested the difference in initialization scores between the two.
+
+DIV2K x2:
+
+| Method              | Gaussian Num |  PSNR   | Init Time (seconds) |
+| :------------------ | :----------: | :-----: | :-----------------: | 
+| CPU Version (scipy) |   76985.22   | 29.6688 |       0.4269        |
+| GPU Version (cupy)  |   76698.35   | 27.0650 |       0.2971        |
+
+Kodak:
+
+| Method              | Gaussian Num |  PSNR   | Init Time (seconds) |
+| :------------------ | :----------: | :-----: | :-----------------: |
+| CPU Version (scipy) |   42858.08   | 29.6764 |       0.2503        |
+| GPU Version (cupy)  |   42656.96   | 27.5285 |       0.2096        |
+
+It can be observed that the number of Gaussians in the GPU version slightly decreased, and the time was also reduced. However, the initial PSNR significantly dropped. This is likely because I did not retrain the model, and there are certain differences in the triangulation results between the two, leading to a larger drop in PSNR.
+
 
 ## Overview
 Implicit Neural Representation (INR) has demonstrated remarkable advances in the field of image representation but demands substantial GPU resources. GaussianImage recently pioneered the use of Gaussian Splatting to mitigate this cost, however, the slow training process limits its practicality, and the fixed number of Gaussians per image limits its adaptability to varying information entropy. To address these issues, we propose in this paper a generalizable and self-adaptive image representation framework based on 2D Gaussian Splatting. Our method employs a network to quickly generate a coarse Gaussian representation, followed by minimal fine-tuning steps, achieving comparable rendering quality of GaussianImage while significantly reducing training time. Moreover, our approach dynamically adjusts the number of Gaussian points based on image complexity to further enhance flexibility and efficiency in practice. Experiments on DIV2K and Kodak datasets show that our method matches or exceeds GaussianImage's rendering performance with far fewer iterations and shorter training times. Specifically, our method reduces the training time by up to one order of magnitude while achieving superior rendering performance with the same number of Gaussians.
