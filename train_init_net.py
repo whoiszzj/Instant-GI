@@ -111,7 +111,7 @@ class Trainer:
     def train(self):
         # init wandb
         wandb.init(
-            project="GaussianImage",
+            project="Instant-GI",
             tags=["train_init"], config=self.args
         )
         run_name = wandb.run.name
