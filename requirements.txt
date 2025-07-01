@@ -1,5 +1,6 @@
 torch
 torchvision
+pytorch-msssim
 numpy
 pandas
 pillow
