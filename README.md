@@ -1,6 +1,6 @@
 # Instant GaussianImage: A Generalizable and Self-Adaptive Image Representation via 2D Gaussian Splatting (ICCV'2025)
 [![License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT) 
-[![arXiv](https://img.shields.io/badge/Instant_GI-xxxxx-b31b1b)](https://arxiv.org/abs/2506.23479)
+[![arXiv](https://img.shields.io/badge/Instant_GI-2506.23479-b31b1b)](https://arxiv.org/abs/2506.23479)
 
 
 This repository contains the official implementation of our paper [Instant-GI](https://arxiv.org/abs/2506.23479), which introduces a versatile and adaptive image representation framework utilizing 2D Gaussian Splatting ([GaussianImage](https://arxiv.org/abs/2403.08551)). GaussianImage leverages the rapid rendering capabilities of Gaussian Splatting within the realm of INR (Implicit Neural Rendering), distinguishing itself with superior rendering speed, compression efficiency, and reconstruction quality. Nonetheless, it faces certain challenges, such as the extended training time required to achieve satisfactory representation and the need to predefine a fixed number of Gaussians per image, rather than dynamically adjusting based on the image's information entropy. Our approach addresses these issues by enhancing these aspects to make GaussianImage more practical. For a comprehensive understanding of our methodology, please refer to our paper.
