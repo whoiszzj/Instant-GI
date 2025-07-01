@@ -21,6 +21,8 @@ from torch_kdtree import build_kd_tree
 from generalizable_model.init_net import InitNet
 from generalizable_model.utils import dither_image
 from quard_image import QuardImage
+import cupy as cp
+from cupyx.scipy.spatial import Delaunay as DelaunayGPU
 
 
 def image_path_to_tensor(image_path: Path):
@@ -289,6 +291,15 @@ def random_seed(seed):
         torch.backends.cudnn.benchmark = False
         np.random.seed(seed)
 
+def warmup_gpu():
+    """
+    Warm up GPU to eliminate initialization overhead
+    """
+    print("Warming up GPU...")
+    # Create a small test array and perform a simple operation
+    test_points = cp.array([[0, 0], [1, 0], [0, 1], [1, 1]])
+    _ = DelaunayGPU(test_points)
+    print("GPU warmup completed!")
 
 def main(argv):
     
@@ -308,6 +319,9 @@ def main(argv):
             init_net_model = InitNet(kernel_size=args.model.kernel_size).cuda()
             init_net_model.load_state_dict(torch.load(args.model.init_model_path)["model"])
 
+    # 2.5 warmup gpu
+    warmup_gpu()
+    
     # 3. load image paths
     image_paths = []
     if args.dataset.dataset_name != "general":
