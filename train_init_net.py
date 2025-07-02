@@ -116,7 +116,10 @@ class Trainer:
         )
         run_name = wandb.run.name
         # checkpoints save path
-        self.checkpoints_dir = args.train.checkpoints_dir + "_" + run_name
+        if run_name is not None:
+            self.checkpoints_dir = args.train.checkpoints_dir + "_" + run_name
+        else:
+            self.checkpoints_dir = args.train.checkpoints_dir
         os.makedirs(self.checkpoints_dir, exist_ok=True)
         self.backup_code()
 
@@ -181,10 +184,10 @@ class Trainer:
                     pbar.update(10)
                 if i in self.vis_train_indices:
                     train_vis_pred_pfs.append(pred_pf)
-                    train_vis_pred_image.append(render_img.clamp(0, 1))
+                    train_vis_pred_image.append(render_img[0].clamp(0, 1))
                     if self.export_train_gt:
                         train_vis_gt_pfs.append(gt_pf)
-                        train_vis_gt_image.append(gt_image)
+                        train_vis_gt_image.append(gt_image[0])
             torch.cuda.empty_cache()
         pbar.close()
 
@@ -255,10 +258,10 @@ class Trainer:
                 pbar.update(10)
             if i in self.vis_valid_indices:
                 test_vis_pred_pfs.append(pred_pf)
-                test_vis_pred_image.append(render_img.clamp(0, 1))
+                test_vis_pred_image.append(render_img[0].clamp(0, 1))
                 if self.export_test_gt:
                     test_vis_gt_pfs.append(gt_pf)
-                    test_vis_gt_image.append(gt_image)
+                    test_vis_gt_image.append(gt_image[0])
             torch.cuda.empty_cache()
         pbar.close()
         wandb.log({"test/pred_pf": [wandb.Image(img.clamp(0, 1)) for img in test_vis_pred_pfs]}, step=epoch)
