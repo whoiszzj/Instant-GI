@@ -67,6 +67,7 @@ Clone the repository and set up the conda environment:
 ```bash
 git clone https://github.com/whoiszzj/Instant-GI.git
 cd Instant-GI
+git checkout -b dev origin/dev  # to dev version
 conda create -n Instant-GI python=3.9
 conda activate Instant-GI
 pip install -r requirements.txt
