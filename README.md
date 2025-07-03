@@ -15,19 +15,30 @@ I also tested the difference in initialization scores between the two.
 
 DIV2K x2:
 
-| Method              | Gaussian Num |  PSNR   | Init Time (seconds) |
-| :------------------ | :----------: | :-----: | :-----------------: | 
-| CPU Version (scipy) |   76985.22   | 29.6688 |       0.4269        |
-| GPU Version (cupy)  |   76698.35   | 27.0650 |       0.2971        |
+| Method                       | Gaussian Num |  PSNR   | Init Time (seconds) |
+| :--------------------------- | :----------: | :-----: | :-----------------: |
+| CPU Version (scipy)          |   76985.22   | 29.6688 |       0.4269        |
+| GPU Version (cupy)           |   76698.35   | 27.0650 |       0.2971        |
+| GPU Version (cupy) - retrain |   76907.03   | 30.7523 |       0.2992        |
 
 Kodak:
 
-| Method              | Gaussian Num |  PSNR   | Init Time (seconds) |
-| :------------------ | :----------: | :-----: | :-----------------: |
-| CPU Version (scipy) |   42858.08   | 29.6764 |       0.2503        |
-| GPU Version (cupy)  |   42656.96   | 27.5285 |       0.2096        |
+| Method                       | Gaussian Num |  PSNR   | Init Time (seconds) |
+| :--------------------------- | :----------: | :-----: | :-----------------: |
+| CPU Version (scipy)          |   42858.08   | 29.6764 |       0.2503        |
+| GPU Version (cupy)           |   42656.96   | 27.5285 |       0.2096        |
+| GPU Version (cupy) - retrain |   43435.08   | 30.0038 |       0.2282        |
 
-It can be observed that the number of Gaussians in the GPU version slightly decreased, and the time was also reduced. However, the initial PSNR significantly dropped. This is likely because I did not retrain the model, and there are certain differences in the triangulation results between the two, leading to a larger drop in PSNR.
+~~It can be observed that the number of Gaussians in the GPU version slightly decreased, and the time was also reduced. However, the initial PSNR significantly dropped. This is likely because I did not retrain the model, and there are certain differences in the triangulation results between the two, leading to a larger drop in PSNR.~~
+
+We retrain the model under the GPU version Delaunay Triangulation, and get the result ``CPU Version (cupy) - retrain``. Surprisingly, the results of this version are even better than those we previously obtained using ``scipy``, and the initialization speed is very fast, making it practically usable even when processing large images (such as DIV2K x1 resolution 1452 x 1978).
+
+DIV2K x1:
+
+| Method                       | Gaussian Num |  PSNR   | Init Time (seconds) |
+| :--------------------------- | :----------: | :-----: | :-----------------: |
+| CPU Version (scipy)          |  293927.81   | 30.5700 |       1.9253        |
+| GPU Version (cupy) - retrain |  298050.03   | 31.8725 |       1.0985        |
 
 
 ## Overview

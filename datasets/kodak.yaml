@@ -12,7 +12,7 @@ model:
   model_name: GaussianImage_RS # now only support GaussianImage_RS
   init_gaussians: "net" # [net, random, quard]
   kernel_size: 3  # minimal patch size when performing dither
-  init_model_path: ./checkpoints/epoch_best_ks_3.pth
+  init_model_path: ./checkpoints/epoch_best_ks_3_cupy.pth
   random_init:
     same_test: True # If same test is true, it will use the init net to initalize the number of gaussians, otherwise using the below "num_points".
     num_points: 20000 # number of gaussians when random initialization
