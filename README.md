@@ -19,7 +19,7 @@ DIV2K x2:
 | :--------------------------- | :----------: | :-----: | :-----------------: |
 | CPU Version (scipy)          |   76985.22   | 29.6688 |       0.4269        |
 | GPU Version (cupy)           |   76698.35   | 27.0650 |       0.2971        |
-| GPU Version (cupy) - retrain |   76907.03   | 30.7523 |       0.2992        |
+| GPU Version (cupy) - retrain |   76660.93   | 31.3004 |       0.3039        |
 
 Kodak:
 
@@ -27,7 +27,7 @@ Kodak:
 | :--------------------------- | :----------: | :-----: | :-----------------: |
 | CPU Version (scipy)          |   42858.08   | 29.6764 |       0.2503        |
 | GPU Version (cupy)           |   42656.96   | 27.5285 |       0.2096        |
-| GPU Version (cupy) - retrain |   43435.08   | 30.0038 |       0.2282        |
+| GPU Version (cupy) - retrain |   43121.38   | 30.5189 |       0.2237        |
 
 ~~It can be observed that the number of Gaussians in the GPU version slightly decreased, and the time was also reduced. However, the initial PSNR significantly dropped. This is likely because I did not retrain the model, and there are certain differences in the triangulation results between the two, leading to a larger drop in PSNR.~~
 
@@ -38,7 +38,7 @@ DIV2K x1:
 | Method                       | Gaussian Num |  PSNR   | Init Time (seconds) |
 | :--------------------------- | :----------: | :-----: | :-----------------: |
 | CPU Version (scipy)          |  293927.81   | 30.5700 |       1.9253        |
-| GPU Version (cupy) - retrain |  298050.03   | 31.8725 |       1.0985        |
+| GPU Version (cupy) - retrain |  296730.31   | 32.5230 |       1.0966        |
 
 
 ## Overview
