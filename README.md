@@ -181,11 +181,12 @@ Thanks to the following open-source libraries, among others, for their assistanc
 If you find our work useful or relevant to your research, please kindly cite our paper:
 ```
 @InProceedings{Zeng_2025_ICCV,
-    author    = {Zeng, Zhaojie and Wang, Yuesong and Yang, Chao and Guan, Tao and Ju, Lili},
+    author    = {Zeng, Zhaojie and Wang, Yuesong and Guan, Tao and Yang, Chao and Ju, Lili},
     title     = {Instant GaussianImage: A Generalizable and Self-Adaptive Image Representation via 2D Gaussian Splatting},
     booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
     month     = {October},
-    year      = {2025}
+    year      = {2025},
+    pages     = {27896-27905}
 }
 ```
 
