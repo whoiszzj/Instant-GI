@@ -11,6 +11,7 @@ Implicit Neural Representation (INR) has demonstrated remarkable advances in the
 
 <div>
   <img align="center" src="./assets/pipeline.png" alt="kodak_fitting" />
+  
   <sub align="left">**Overview of our Instant-GI pipeline.** Given an input image, we first extract a feature map using a ConvNeXt-based UNet. The Position Probability Map (PPM) is then predicted by an MLP-based Position Field and discretized via Floyd–Steinberg Dithering. The resulting points are structured using Delaunay Triangulation, from which geometric features are extracted. Gaussian attributes, including position, scaling, rotation, and opacity, are predicted through dedicated MLP fields (BC Field, Σ Field, and Opacity Field). The final Gaussians are rendered via splatting, supervised by the RGB loss L_rec to ensure reconstruction quality. Additionally, a pre-trained Gaussian representation from GI is used to generate a Pseudo PPM, which supervises position probability learning via L_ppm.</sub>
 </div>
 
@@ -181,11 +182,12 @@ Thanks to the following open-source libraries, among others, for their assistanc
 If you find our work useful or relevant to your research, please kindly cite our paper:
 ```
 @InProceedings{Zeng_2025_ICCV,
-    author    = {Zeng, Zhaojie and Wang, Yuesong and Yang, Chao and Guan, Tao and Ju, Lili},
+    author    = {Zeng, Zhaojie and Wang, Yuesong and Guan, Tao and Yang, Chao and Ju, Lili},
     title     = {Instant GaussianImage: A Generalizable and Self-Adaptive Image Representation via 2D Gaussian Splatting},
     booktitle = {Proceedings of the IEEE/CVF International Conference on Computer Vision (ICCV)},
     month     = {October},
-    year      = {2025}
+    year      = {2025},
+    pages     = {27896-27905}
 }
 ```
 
