@@ -42,8 +42,7 @@ inline __device__ void get_tile_bbox(
     get_bbox(tile_center, tile_radius, tile_bounds, tile_min, tile_max);
 }
 
-inline __device__ bool
-compute_cov2d_bounds(const float3 cov2d, float3 &conic, float &radius) {
+inline __device__ bool compute_cov2d_bounds(const float3 cov2d, float3 &conic, float &radius) {
     // find eigenvalues of 2d covariance matrix
     // expects upper triangular values of cov matrix as float3
     // then compute the radius and conic dimensions
@@ -161,34 +160,9 @@ inline __device__ glm::mat3 quat_to_rotmat(const float4 quat) {
     );
 }
 
-// inline __device__ glm::mat3 rotor_to_rotmat(const float4 rot) {
-//     // quat to rotation matrix
-//     float s = rsqrtf(
-//         rot.x * rot.x + rot.y * rot.y + rot.z * rot.z + rot.w * rot.w
-//     );
-//     float x = rot.x * s;
-//     float y = rot.y * s;
-//     float z = rot.z * s;
-//     float w = rot.w * s;
-
-//     // glm matrices are column-major
-//     return glm::mat3(
-//         x * x - y * y - z * z + w * w,
-//         -2.f * (x * y + w * z),
-//         2.f * (y * w - x * z),
-//         2.f * (x * y - w * z),
-//         x * x - y * y + z * z - w * w,
-//         -2.f * (y * z + w * x),
-//         2.f * (y * w + x * z),
-//         2.f * (x * w - y * z),
-//         x * x + y * y - z * z - w * w
-//     );
-// }
 
 
-
-inline __device__ float4
-quat_to_rotmat_vjp(const float4 quat, const glm::mat3 v_R) {
+inline __device__ float4 quat_to_rotmat_vjp(const float4 quat, const glm::mat3 v_R) {
     float s = rsqrtf(
         quat.w * quat.w + quat.x * quat.x + quat.y * quat.y + quat.z * quat.z
     );
@@ -233,8 +207,7 @@ quat_to_rotmat_vjp(const float4 quat, const glm::mat3 v_R) {
     return v_quat;
 }
 
-inline __device__ glm::mat3
-scale_to_mat(const float3 scale, const float glob_scale) {
+inline __device__ glm::mat3 scale_to_mat(const float3 scale, const float glob_scale) {
     glm::mat3 S = glm::mat3(1.f);
     S[0][0] = glob_scale * scale.x;
     S[1][1] = glob_scale * scale.y;
@@ -242,17 +215,8 @@ scale_to_mat(const float3 scale, const float glob_scale) {
     return S;
 }
 
-// inline __device__ glm::mat3
-// inverse_scale_to_mat(const float3 scale, const float glob_scale) {
-//     glm::mat3 S = glm::mat3(1.f);
-//     S[0][0] = 1 / (glob_scale * scale.x);
-//     S[1][1] = 1 / (glob_scale * scale.y);
-//     S[2][2] = 1 / (glob_scale * scale.z);
-//     return S;
-// }
 
-inline __device__ glm::mat3
-triangular_mat(const float3 diag_elements, const float3 non_diag_elements) {
+inline __device__ glm::mat3 triangular_mat(const float3 diag_elements, const float3 non_diag_elements) {
     glm::mat3 L = glm::mat3(1.f);
     L[0][0] = diag_elements.x;
     L[1][1] = diag_elements.y;
@@ -265,7 +229,6 @@ triangular_mat(const float3 diag_elements, const float3 non_diag_elements) {
 
 
 inline __device__ glm::mat2 scale_to_mat2d(const float2 scale) {
-    // 生成缩放矩阵，按列主序
     glm::mat2 S = glm::mat2(scale.x, 0.f, 0.f, scale.y);
     return S;
 }

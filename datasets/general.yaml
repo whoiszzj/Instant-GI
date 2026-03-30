@@ -14,7 +14,7 @@ model:
     num_points: 20000 # number of gaussians when random initialization
 
 train:
-  iterations: 50000  # Finetune iteration. For most cases 1000 - 2000 iterations' finetune will get a satisfactory result
+  iterations: 0  # Finetune iteration. For most cases 1000 - 2000 iterations' finetune will get a satisfactory result
   lr: 0.001
   save_path: ./output
   seed: 42

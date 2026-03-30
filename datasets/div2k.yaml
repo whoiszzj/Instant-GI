@@ -3,7 +3,7 @@ mode: train #[train, test]
 dataset:
   dataset_name: div2k
   images_dir: ./data/div2k/div2k_all/X2
-  start: 800
+  start: 801
   images_num: 100
   regex: '{:04d}x2.png'
   image_paths: [] # Only activate when the dataset_name is set as "general"

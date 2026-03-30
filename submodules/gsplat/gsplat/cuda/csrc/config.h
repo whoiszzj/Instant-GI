@@ -5,15 +5,24 @@
 
 #define MAX_REGISTER_CHANNELS 3
 
-#define CUDA_CALL(x)                                                           \
+// #define CUDA_CALL(x)                                                           \
+//     do {                                                                       \
+//         if ((x) != cudaSuccess) {                                              \
+//             printf(                                                            \
+//                 "Error at %s:%d - %s\n",                                       \
+//                 __FILE__,                                                      \
+//                 __LINE__,                                                      \
+//                 cudaGetErrorString(cudaGetLastError())                         \
+//             );                                                                 \
+//             exit(EXIT_FAILURE);                                                \
+//         }                                                                      \
+//     } while (0)
+#define CUDA_CALL(expr)                                                        \
     do {                                                                       \
-        if ((x) != cudaSuccess) {                                              \
-            printf(                                                            \
-                "Error at %s:%d - %s\n",                                       \
-                __FILE__,                                                      \
-                __LINE__,                                                      \
-                cudaGetErrorString(cudaGetLastError())                         \
-            );                                                                 \
-            exit(EXIT_FAILURE);                                                \
-        }                                                                      \
+        cudaError_t err = (expr);                                              \
+        TORCH_CHECK(                                                           \
+            err == cudaSuccess,                                                \
+            "CUDA error at ", __FILE__, ":", __LINE__, " - ",                  \
+            cudaGetErrorString(err)                                            \
+        );                                                                     \
     } while (0)

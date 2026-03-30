@@ -66,12 +66,12 @@ class SimpleTrainer2d:
 
         if args.model.init_gaussians == "net":
             self.init_points, self.init_time = init_from_net(self.gt_image, init_net_model)
-            # torch.cuda.empty_cache()
+            torch.cuda.empty_cache()
             self.num_points = len(self.init_points)
         elif args.model.init_gaussians == "random":
             if args.model.random_init.same_test:
                 sampled_points, _ = init_from_net(self.gt_image, init_net_model)
-                # torch.cuda.empty_cache()
+                torch.cuda.empty_cache()
                 self.num_points = len(sampled_points)
             self.init_time = 0
         elif args.model.init_gaussians == "quard":
@@ -257,6 +257,7 @@ class SimpleTrainer2d:
             for i in range(100):
                 _ = self.gaussian_model()
             test_end_time = (time.time() - test_start_time) / 100
+            torch.cuda.empty_cache()
         # save rendered image
         img = (out["render"][0].permute(1, 2, 0).cpu().numpy() * 255).astype(np.uint8)
         cv2.imwrite(str(self.log_dir / "render.png"), cv2.cvtColor(img, cv2.COLOR_BGR2RGB))

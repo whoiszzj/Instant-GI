@@ -146,7 +146,7 @@ class _RasterizeGaussiansSum(Function):
             if colors.shape[-1] == 3:
                 rasterize_fn = _C.rasterize_sum_forward
             else:
-                rasterize_fn = _C.nd_rasterize_sum_forward
+                raise NotImplementedError("Only 3-channel colors are supported")
 
             out_img, final_Ts, final_idx = rasterize_fn(
                 tile_bounds,
@@ -217,7 +217,7 @@ class _RasterizeGaussiansSum(Function):
             if colors.shape[-1] == 3:
                 rasterize_fn = _C.rasterize_sum_backward
             else:
-                rasterize_fn = _C.nd_rasterize_sum_backward
+                raise NotImplementedError("Only 3-channel colors are supported")
             v_xy, v_conic, v_colors, v_opacity = rasterize_fn(
                 img_height,
                 img_width,
@@ -233,7 +233,7 @@ class _RasterizeGaussiansSum(Function):
                 final_Ts,
                 final_idx,
                 v_out_img,
-                v_out_alpha,
+                -v_out_alpha,
             )
 
         return (
